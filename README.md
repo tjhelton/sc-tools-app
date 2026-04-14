@@ -1,156 +1,82 @@
 # SafetyCulture Tools
 
-A Streamlit-based app and Python script collection for SafetyCulture API operations. Provides tools for bulk management of templates, sites, issues, and other SafetyCulture resources.
+A collection of bulk operations tools for the SafetyCulture platform. Includes a Streamlit web app with a guided UI and 30+ standalone CLI scripts for managing actions, assets, inspections, sites, templates, users, and more via the SafetyCulture API.
 
-## 🚀 Quick Start
+## Download & Install
+
+> **[Download ZIP (Mac / Windows / Linux)](https://github.com/tjhelton/issue_tracker_demo/archive/refs/heads/main.zip)**
+
+1. Download and extract the ZIP
+2. **Mac** — double-click `launch_app.command` (creates a virtual environment and installs dependencies automatically)
+3. **Windows** — double-click `launch_app.bat` (same auto-setup)
+4. Enter your SafetyCulture API token when the app opens in your browser
+
+That's it — no manual Python setup required. The launcher handles everything on first run.
+
+### Manual Setup (optional)
+
+If you prefer to run things yourself or are on Linux:
 
 ```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# Launch the app
+python3 -m pip install -r requirements.txt
 streamlit run app/Home.py
 ```
 
-## 📁 Available Scripts
+## Prerequisites
 
-> **💡 Each script has its own README with detailed setup instructions, input formats, and usage examples. Click any script link below to view its complete documentation.**
+- **Python 3.8+** (pre-installed on most Macs; [download for Windows](https://www.python.org/downloads/))
+- **SafetyCulture API Token** — [Get yours here](https://developer.safetyculture.com/reference/getting-started)
 
-### Actions
-- **[delete_actions/](scripts/actions/delete_actions/)** - Delete SafetyCulture actions in bulk (batches of 300)
-- **[delete_action_schedules/](scripts/actions/delete_action_schedules/)** - Delete action schedules with efficient async pagination
+## How It Works
 
-### Assets
-- **[export_assets/](scripts/assets/export_assets/)** - High-performance asset export to CSV
-- **[export_asset_types/](scripts/assets/export_asset_types/)** - Export asset type definitions
-- **[update_assets/](scripts/assets/update_assets/)** - Bulk update assets from CSV
-- **[delete_assets/](scripts/assets/delete_assets/)** - Archive-then-delete assets with colored output
+The web app provides a point-and-click interface for bulk SafetyCulture operations:
 
-### Courses
-- **[assign_courses/](scripts/courses/assign_courses/)** - Assign training courses to sites in bulk
+1. Paste your API token on the home page and validate it
+2. Pick a category from the sidebar (Actions, Assets, Inspections, etc.)
+3. Choose a tool from the tabs within that category
+4. Upload a CSV if the tool requires one (each tool shows the required columns)
+5. Click Run and watch the progress
+6. Download the results when complete
 
-### Groups
-- **[create_groups/](scripts/groups/create_groups/)** - Create SafetyCulture groups
-- **[export_group_assignees/](scripts/groups/export_group_assignees/)** - Export group assignee information
+Your API token is stored only for the browser session and is never saved to disk.
 
-### Inspections
-- **[archive_inspections/](scripts/inspections/archive_inspections/)** - Bulk archive inspections with rate limiting
-- **[complete_inspections/](scripts/inspections/complete_inspections/)** - Bulk complete inspections
-- **[delete_inspections/](scripts/inspections/delete_inspections/)** - Permanently delete inspections in bulk
-- **[export_inspection_location_changes/](scripts/inspections/export_inspection_location_changes/)** - Export address field changes from revision history
-- **[export_inspection_pdfs/](scripts/inspections/export_inspection_pdfs/)** - Bulk export inspection PDFs
-- **[unarchive_inspections/](scripts/inspections/unarchive_inspections/)** - Bulk unarchive inspections
-- **[update_inspection_site/](scripts/inspections/update_inspection_site/)** - Configure inspection-site relationships
+## Available Tools
 
-### Issues
-- **[export_issue_relations/](scripts/issues/export_issue_relations/)** - Export issue relationship data to CSV
-- **[export_issue_public_links/](scripts/issues/export_issue_public_links/)** - Generate public sharing links for issues
+| Category | Tools | Operations |
+|---|---|---|
+| **Actions** | 5 | Export, update status, delete actions, manage schedules |
+| **Assets** | 4 | Export assets/types, bulk update fields, delete |
+| **Inspections** | 7 | Archive, unarchive, complete, delete, export PDFs and location changes |
+| **Sites** | 4 | Create, delete, find inactive sites, manage user access |
+| **Templates** | 3 | Archive, export access rules and questions |
+| **Users** | 2 | Deactivate accounts, export custom field data |
+| **Courses** | 1 | Assign training courses to sites |
+| **Groups** | 2 | Create groups, export member details |
+| **Issues** | 2 | Export public links and relationships |
+| **Organizations** | 1 | Export contractor company records |
+| **Schedules** | 2 | Export and update legacy schedules |
 
-### Organizations
-- **[export_contractor_companies/](scripts/organizations/export_contractor_companies/)** - Export contractor company records to CSV
+## CLI Scripts
 
-### Sites
-- **[create_sites/](scripts/sites/create_sites/)** - Create SafetyCulture sites with hierarchy support
-- **[delete_sites/](scripts/sites/delete_sites/)** - Delete SafetyCulture sites in bulk
-- **[export_sites_inactive/](scripts/sites/export_sites_inactive/)** - Identify and export inactive sites
-- **[update_site_users/](scripts/sites/update_site_users/)** - Bulk update user site assignments
-
-### Templates
-- **[archive_templates/](scripts/templates/archive_templates/)** - Archive SafetyCulture templates in bulk
-- **[export_template_access_rules/](scripts/templates/export_template_access_rules/)** - Export template permission matrices
-- **[export_template_questions/](scripts/templates/export_template_questions/)** - Export template questions and structure
-
-### Users
-- **[deactivate_users/](scripts/users/deactivate_users/)** - Deactivate user accounts in bulk
-- **[export_user_custom_fields/](scripts/users/export_user_custom_fields/)** - Export user custom field data
-
-### Admin Tools
-- **[nuke_account/](scripts/nuke_account/)** - ⚠️ Comprehensive account cleanup tool (use with extreme caution)
-
-## 🛠️ Development
-
-### Code Quality
-This project uses automated linting and formatting tools. **All linting commands must be run from the `contribution_tools/` directory**:
+Each tool is also available as a standalone Python script in the [scripts/](scripts/) directory. Every script has its own README with input format, usage, and examples.
 
 ```bash
-cd contribution_tools/
-make lint      # Check code quality
-make fix       # Auto-fix formatting issues
-make help      # See all available commands
+cd scripts/inspections/archive_inspections/
+# Edit main.py to set your API token, prepare input.csv
+python main.py
 ```
 
-### Pre-commit Hooks
-Automatically format and lint code before commits:
+## Important Notes
 
-```bash
-cd contribution_tools/
-make pre-commit
-```
+- **Always test with small datasets first** — many operations (delete, archive) cannot be undone
+- **Never commit API tokens** — the `.gitignore` is configured to keep secrets out of the repo
+- Scripts include built-in rate limiting, retry logic, and progress tracking
 
-### GitHub Actions
-- Automated code quality checks on all pull requests
-- Linting and formatting validation
-- Ensures consistent code standards
-
-## 📋 Prerequisites
-
-- **Python 3.8+** with pip
-- **SafetyCulture API Token** - [Get yours here](https://developer.safetyculture.com/reference/getting-started)
-- **API Access** - Appropriate permissions for your use case
-
-## 🔧 Dependencies
-
-Install all required dependencies for the scripts:
-```bash
-pip install -r requirements.txt
-```
-
-This installs:
-- **pandas** - CSV data processing and manipulation
-- **requests** - HTTP requests to SafetyCulture API
-- **aiohttp** - Async HTTP requests (for concurrent processing scripts)
-- **tqdm** - Progress bars for long-running operations
-
-## 📖 Usage Patterns
-
-### Standard Workflow
-1. Install dependencies: `pip install -r requirements.txt`
-2. Navigate to desired script directory
-3. Set API token in `main.py` or environment variable
-4. Prepare `input.csv` (if required)
-5. Run `python main.py`
-6. Check output files
-
-### Authentication Methods
-- **Token in script**: `TOKEN = 'your-token-here'` (most scripts)
-- **Environment variable**: `export SC_API_TOKEN="your-token-here"` (advanced scripts)
-
-## 📊 Input/Output Formats
-
-### Standard Input
-Most scripts expect `input.csv` with relevant IDs or parameters. See individual script READMEs for specific formats.
-
-### Standard Output
-- CSV files with processing results
-- Timestamped output directories (for complex scripts)
-- Terminal progress logging
-
-## ⚠️ Important Notes
-
-- **Security**: Never commit API tokens or sensitive data
-- **Testing**: Always test with small datasets first
-- **Irreversible**: Many operations (delete, archive) cannot be undone
-- **Rate Limits**: Scripts include appropriate delays and retry logic
-
-## 📚 API Documentation
+## API Documentation
 
 - [SafetyCulture API Reference](https://developer.safetyculture.com/reference/)
 - [Getting Started Guide](https://developer.safetyculture.com/reference/getting-started)
 
-## 🤝 Contributing
+## Contributing
 
-See the [contribution guide](contribution_tools/CONTRIBUTE.md) for development setup and code quality tools.
-
-## 📄 License
-
-This project is provided as-is for SafetyCulture API automation. Use responsibly and in accordance with SafetyCulture's terms of service.
+See the [contribution guide](contribution_tools/CONTRIBUTE.md) for development setup, linting, and code quality tools.
