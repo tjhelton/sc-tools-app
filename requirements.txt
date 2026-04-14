@@ -1,0 +1,18 @@
+# SafetyCulture Tools App - Python Dependencies
+# Install all dependencies: pip install -r requirements.txt
+
+# Web app framework
+streamlit>=1.30.0
+
+# Core data manipulation and HTTP libraries
+pandas>=2.0.0
+requests>=2.31.0
+
+# Async HTTP library
+aiohttp>=3.9.0
+
+# Progress bar library (used by original CLI scripts)
+tqdm>=4.66.0
+
+# Rich console library (used by original CLI scripts)
+rich>=13.0.0
