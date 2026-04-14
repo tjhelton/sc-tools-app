@@ -11,7 +11,7 @@ Output: dist/SafetyCulture Tools.app  (Mac)
 """
 
 import sys
-from PyInstaller.utils.hooks import collect_all
+from PyInstaller.utils.hooks import collect_all, collect_submodules
 
 # ── Analysis ──────────────────────────────────────────────────────────
 
@@ -23,9 +23,40 @@ a = Analysis(
         ("app", "app"),  # Streamlit pages, core modules, and .streamlit config
     ],
     hiddenimports=[
+        # Streamlit internals
         "streamlit.web.cli",
         "streamlit.web.bootstrap",
         "streamlit.runtime.scriptrunner",
+        "streamlit.runtime.scriptrunner.magic_funcs",
+        "streamlit.runtime.state",
+        "streamlit.components.v1",
+        # Tornado (Streamlit's web server)
+        "tornado",
+        "tornado.web",
+        "tornado.httpserver",
+        "tornado.ioloop",
+        "tornado.websocket",
+        # Click (Streamlit CLI)
+        "click",
+        # Typing extensions
+        "typing_extensions",
+        # importlib.metadata (used by many packages)
+        "importlib.metadata",
+        "importlib_metadata",
+        # pandas optional backends
+        "pandas._libs.tslibs.np_datetime",
+        "pandas._libs.tslibs.nattype",
+        "pandas._libs.tslibs.timezones",
+        "pandas._libs.skiplist",
+        # aiohttp
+        "aiohttp",
+        "aiohttp.cookiejar",
+        # requests/urllib3
+        "requests",
+        "urllib3",
+        "certifi",
+        "charset_normalizer",
+        "idna",
     ],
     hookspath=[],
     hooksconfig={},
@@ -46,6 +77,8 @@ for pkg in [
     "plotly",
     "aiohttp",
     "rich",
+    "click",
+    "tornado",
 ]:
     try:
         pkg_datas, pkg_binaries, pkg_hidden = collect_all(pkg)
