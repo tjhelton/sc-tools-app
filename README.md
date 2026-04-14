@@ -4,28 +4,37 @@ A collection of bulk operations tools for the SafetyCulture platform. Includes a
 
 ## Download & Install
 
-> **[Download ZIP (Mac / Windows / Linux)](https://github.com/tjhelton/issue_tracker_demo/archive/refs/heads/main.zip)**
+### Mac
+
+> **[Download for Mac](https://github.com/tjhelton/issue_tracker_demo/archive/refs/heads/main.zip)**
 
 1. Download and extract the ZIP
-2. **Mac** — double-click `launch_app.command` (creates a virtual environment and installs dependencies automatically)
-3. **Windows** — double-click `launch_app.bat` (same auto-setup)
-4. Enter your SafetyCulture API token when the app opens in your browser
+2. Double-click **SafetyCulture Tools.app**
+3. The app opens in a native window — first launch sets up dependencies and may take a minute
 
-That's it — no manual Python setup required. The launcher handles everything on first run.
+If the `.app` doesn't work on your system, double-click `launch_app.command` instead.
 
-### Manual Setup (optional)
+### Windows
 
-If you prefer to run things yourself or are on Linux:
+> **[Download for Windows](https://github.com/tjhelton/issue_tracker_demo/archive/refs/heads/main.zip)**
+
+1. Download and extract the ZIP
+2. Double-click **launch_app.vbs**
+3. The app opens in a native window — first launch sets up dependencies and may take a minute
+
+If the `.vbs` doesn't work on your system, double-click `launch_app.bat` instead.
+
+### Prerequisites
+
+- **Python 3.8+** — pre-installed on most Macs; [download for Windows](https://www.python.org/downloads/)
+- **SafetyCulture API Token** — [Get yours here](https://developer.safetyculture.com/reference/getting-started)
+
+### Manual Setup (Linux / advanced)
 
 ```bash
 python3 -m pip install -r requirements.txt
 streamlit run app/Home.py
 ```
-
-## Prerequisites
-
-- **Python 3.8+** (pre-installed on most Macs; [download for Windows](https://www.python.org/downloads/))
-- **SafetyCulture API Token** — [Get yours here](https://developer.safetyculture.com/reference/getting-started)
 
 ## How It Works
 
