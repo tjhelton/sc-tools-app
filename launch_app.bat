@@ -1,6 +1,6 @@
 @echo off
 REM SafetyCulture Tools — Windows Launcher
-REM Double-click this file to start the app in your browser.
+REM Double-click launch_app.vbs for a hidden window, or this file as a fallback.
 
 cd /d "%~dp0"
 
@@ -23,12 +23,11 @@ REM Activate virtual environment
 call .venv\Scripts\activate.bat
 
 REM Install dependencies if needed
-python -c "import streamlit" 2>nul
+python -c "import streamlit; import webview" 2>nul
 if %ERRORLEVEL% neq 0 (
     echo Installing dependencies (first run only^)...
     pip install -r requirements.txt --quiet
 )
 
 echo Starting SafetyCulture Tools...
-echo The app will open in your browser. Close this window to stop it.
-python -m streamlit run app/Home.py
+python launcher.py

@@ -1,6 +1,6 @@
 #!/bin/bash
-# SafetyCulture Tools — Mac Launcher
-# Double-click this file to start the app in your browser.
+# SafetyCulture Tools — Mac Launcher (Terminal fallback)
+# Double-click this file if SafetyCulture Tools.app doesn't work on your system.
 
 cd "$(dirname "$0")"
 
@@ -22,11 +22,13 @@ fi
 source .venv/bin/activate
 
 # Install dependencies if needed
-if ! python3 -c "import streamlit" 2>/dev/null; then
+if ! python3 -c "import streamlit; import webview" 2>/dev/null; then
     echo "Installing dependencies (first run only)..."
     pip install -r requirements.txt --quiet
 fi
 
 echo "Starting SafetyCulture Tools..."
-echo "The app will open in your browser. Close this terminal window to stop it."
-python3 -m streamlit run app/Home.py
+
+# Minimize the terminal window, then launch the native app window
+osascript -e 'tell application "Terminal" to set miniaturized of front window to true' 2>/dev/null
+python3 launcher.py
