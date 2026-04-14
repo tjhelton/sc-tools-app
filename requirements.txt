@@ -16,3 +16,6 @@ tqdm>=4.66.0
 
 # Rich console library (used by original CLI scripts)
 rich>=13.0.0
+
+# Native desktop window for the app launcher
+pywebview>=5.0
