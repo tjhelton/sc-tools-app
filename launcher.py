@@ -42,8 +42,32 @@ def wait_for_server(url, timeout=120):
     return False
 
 
+def _patch_signal_for_threads():
+    """Allow signal.signal() calls from non-main threads to succeed silently.
+
+    Streamlit's bootstrap calls signal.signal() to register handlers, but
+    Python only allows that in the main thread.  Since the main thread must
+    run the macOS GUI (Cocoa/pywebview), Streamlit runs in a daemon thread
+    and would crash with ``ValueError: signal only works in main thread``.
+
+    This patch makes non-main-thread calls a harmless no-op.
+    """
+    import signal
+
+    _original = signal.signal
+
+    def _safe_signal(signalnum, handler):
+        if threading.current_thread() is not threading.main_thread():
+            return signal.getsignal(signalnum)
+        return _original(signalnum, handler)
+
+    signal.signal = _safe_signal
+
+
 def run_streamlit_server(app_path, port):
     """Run the Streamlit server (called in a daemon thread)."""
+    _patch_signal_for_threads()
+
     sys.argv = [
         "streamlit",
         "run",
